@@ -1,3 +1,6 @@
+// modulator android project
+// by me
+
 package com.timseal.modulator;
 
 import android.app.Activity;
