@@ -20,27 +20,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="A"
-                    android:onClick="addChord(0)"
+                    android:onClick="addChord"
                     />
 
             <Button
-                    android:id="@+id/button12"
+                    android:id="@+id/Bb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="A#/Bb"/>
+                    android:text="A#/Bb"
+                    android:onClick="addChord"/>
 
 
             <Button
-                    android:id="@+id/button14"
+                    android:id="@+id/B"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="B"/>
+                    android:text="B"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button21"
+                    android:id="@+id/C"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="C"/>
+                    android:text="C"
+                    android:onClick="addChord"/>
         </TableRow>
 
         <TableRow
@@ -49,28 +52,32 @@
                 android:layout_height="wrap_content">
 
             <Button
-                    android:id="@+id/button22"
+                    android:id="@+id/Db"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="C#/Db"/>
+                    android:text="C#/Db"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button23"
+                    android:id="@+id/D"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="D"/>
+                    android:text="D"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button24"
+                    android:id="@+id/Eb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="D#/Eb"/>
+                    android:text="D#/Eb"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button31"
+                    android:id="@+id/E"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="E"/>
+                    android:text="E"
+                    android:onClick="addChord"/>
         </TableRow>
 
         <TableRow
@@ -79,28 +86,32 @@
                 android:layout_height="wrap_content">
 
             <Button
-                    android:id="@+id/button32"
+                    android:id="@+id/F"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="F"/>
+                    android:text="F"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button33"
+                    android:id="@+id/Gb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="F#/Gb"/>
+                    android:text="F#/Gb"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button34"
+                    android:id="@+id/G"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="G"/>
+                    android:text="G"
+                    android:onClick="addChord"/>
 
             <Button
-                    android:id="@+id/button41"
+                    android:id="@+id/Ab"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="G#/Ab"/>
+                    android:text="G#/Ab"
+                    android:onClick="addChord"/>
 
         </TableRow>
 
@@ -109,7 +120,8 @@
             <TextView
                     android:id="@+id/chords"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_span="4">
             </TextView>
         </TableRow>
 

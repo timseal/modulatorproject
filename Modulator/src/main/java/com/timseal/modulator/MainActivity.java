@@ -6,7 +6,9 @@ package com.timseal.modulator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +32,55 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    private void addChord(Integer chordNumber) {
-        chords.add(chordNumber);
-        updateChordDisplay(chordNumber.toString());
+    public void addChord(View v) {
+        CharSequence chord = "";
+        switch (v.getId()) {
+            case R.id.A:
+                chord = "A";
+                break;
+            case R.id.Bb:
+                chord = "Bb";
+                break;
+            case R.id.B:
+                chord = "B";
+                break;
+            case R.id.C:
+                chord = "C";
+                break;
+            case R.id.Db:
+                chord = "Db";
+                break;
+            case R.id.D:
+                chord = "D";
+                break;
+            case R.id.Eb:
+                chord = "Eb";
+                break;
+            case R.id.E:
+                chord = "E";
+                break;
+            case R.id.F:
+                chord = "F";
+                break;
+            case R.id.Gb:
+                chord = "Gb";
+                break;
+            case R.id.G:
+                chord = "G";
+                break;
+            case R.id.Ab:
+                chord = "Ab";
+                break;
+            default:
+                chord = "??";
+        }
+
+        Toast.makeText(getApplicationContext(), chord, Toast.LENGTH_LONG).show();
+        updateChordDisplay(chord);
     }
 
     private void updateChordDisplay(CharSequence chord) {
         TextView chordsView = (TextView) findViewById(R.id.chords);
-        chordsView.append(chord);
+        chordsView.append(chord + ".");
     }
 }
