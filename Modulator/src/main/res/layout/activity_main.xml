@@ -136,7 +136,8 @@
                     android:id="@+id/chordslabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_span="4"/>
+                    android:layout_span="4"
+                    android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"/>
 
         </TableRow>
 
@@ -157,20 +158,45 @@
 
         <TableRow>
 
-            <NumberPicker
-                    android:id="@+id/plusminus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+            <LinearLayout android:orientation="vertical">
+
+                <Button
+                        android:id="@+id/modulateUp"
+                        android:text="Up"
+                        android:onClick="modulateUp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                <Button
+                        android:id="@+id/modulateDown"
+                        android:text="Down"
+                        android:onClick="modulateDown"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:orientation="vertical"
-                    android:value="0"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_span="3">
 
-            <TextView
-                    android:id="@+id/newchords"
-                    android:text="New Chords: "
-                    />
+                <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/newchordslabel"
+                        android:text="New Chords: "
+                        android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"/>
+
+                <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:id="@+id/newchords"
+                        android:text="BLAH BLAH BLAH "
+                        android:textAppearance="@android:style/TextAppearance.Holo.Large"/>
 
 
+            </LinearLayout>
         </TableRow>
 
     </TableLayout>

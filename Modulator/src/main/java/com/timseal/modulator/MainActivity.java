@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,15 +22,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NumberPicker np = (NumberPicker) findViewById(R.id.plusminus);
-        np.setValue(0);
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i2) {
-                CharSequence msg = "Changed from " + i + " to " + i2;
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
 
@@ -40,6 +30,14 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public void modulateUp(View v) {
+        Toast.makeText(getApplicationContext(), "UP UP AND AWAY", Toast.LENGTH_LONG).show();
+    }
+
+    public void modulateDown(View v) {
+        Toast.makeText(getApplicationContext(), "THE DOWNWARD SPIRAL", Toast.LENGTH_LONG).show();
     }
 
     public void addChord(View v) {
