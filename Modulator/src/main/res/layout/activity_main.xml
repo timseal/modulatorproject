@@ -137,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_span="4"
-                    android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"/>
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
 
         </TableRow>
 
@@ -153,8 +153,6 @@
                     android:minLines="2"/>
 
         </TableRow>
-
-        <Space/>
 
         <TableRow>
 
@@ -186,7 +184,7 @@
                         android:layout_width="match_parent"
                         android:id="@+id/newchordslabel"
                         android:text="New Chords: "
-                        android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"/>
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
 
                 <TextView
                         android:layout_height="match_parent"
