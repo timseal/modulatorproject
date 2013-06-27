@@ -16,7 +16,9 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    List<Integer> chords = new ArrayList<Integer>(20);
+    private static final String TAG = "Modulator.MainActivity";
+    public static final int MAX_CHORDS = 20;
+    List<Integer> chords = new ArrayList<Integer>(MAX_CHORDS);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +42,27 @@ public class MainActivity extends Activity {
         // except 12, which becomes 1.
         // so no mod 12 stuff is even needed!
 
-        // BUG
-        // This does not change the array contents.
-        // When you hit the up button, it shows the same chords.
+        List<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
+
         for (Integer chord : chords) {
+            Integer newChord;
             if (chord >= 1 && chord <= 11) {
-                chord += 1;
+                newChord = chord + 1;
             } else if (chord == 12) {
-                chord = 1;
+                newChord = 1;
             } else {
-                Log.d("MainActivity", "invalid chord number");
+                Log.d(TAG, "invalid chord number");
+                newChord = -1;
                 ///ARGH! error.
             }
+            Log.d(TAG, "chord was " + chord + ", changed to " + newChord);
+            newChords.add(newChord);
         }
-
+        Log.d(TAG, newChords.toString());
+        chords = newChords; //possible sync bug
         Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
     }
+
 
     public void modulateDown(View v) {
         Toast.makeText(getApplicationContext(), "THE DOWNWARD SPIRAL", Toast.LENGTH_LONG).show();
