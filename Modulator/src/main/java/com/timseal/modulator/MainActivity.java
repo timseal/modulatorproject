@@ -60,7 +60,8 @@ public class MainActivity extends Activity {
         }
         Log.d(TAG, newChords.toString());
         chords = newChords; //possible sync bug
-        Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
+        showNewChords();
     }
 
 
@@ -183,7 +184,7 @@ public class MainActivity extends Activity {
                 chord = "??";
         }
 
-        Toast.makeText(getApplicationContext(), chord, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), chord, Toast.LENGTH_LONG).show();
         chords.add(chordNumber);
         updateChordDisplay();
     }
@@ -191,5 +192,10 @@ public class MainActivity extends Activity {
     private void updateChordDisplay() {
         TextView chordsView = (TextView) findViewById(R.id.chords);
         chordsView.setText(chordNamesFromNumbers());
+    }
+
+    private void showNewChords() {
+        TextView newChordsView = (TextView) findViewById(R.id.newchords);
+        newChordsView.setText(chordNamesFromNumbers());
     }
 }
