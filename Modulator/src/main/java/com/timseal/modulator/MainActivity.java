@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO: keep state on orientation changes!!
     }
 
 
@@ -66,13 +67,31 @@ public class MainActivity extends Activity {
 
 
     public void modulateDown(View v) {
-        Toast.makeText(getApplicationContext(), "THE DOWNWARD SPIRAL", Toast.LENGTH_LONG).show();
-
         // loop over all chords
         // -1 to each
         // except 1, which becomes 12.
+        List<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
 
+        for (Integer chord : chords) {
+            Integer newChord;
+            if (chord >= 2 && chord <= 12) {
+                newChord = chord - 1;
+            } else if (chord == 1) {
+                newChord = 12;
+            } else {
+                Log.d(TAG, "invalid chord number");
+                newChord = -1;
+                ///ARGH! error.
+            }
+            Log.d(TAG, "chord was " + chord + ", changed to " + newChord);
+            newChords.add(newChord);
+        }
+        Log.d(TAG, newChords.toString());
+        chords = newChords; //possible sync bug
+        //Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
+        showNewChords();
     }
+
 
     private CharSequence chordNamesFromNumbers() {
         String chordNames = "";
