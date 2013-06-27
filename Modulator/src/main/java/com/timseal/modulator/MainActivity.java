@@ -34,15 +34,15 @@ public class MainActivity extends Activity {
     }
 
     public void modulateUp(View v) {
-        Toast.makeText(getApplicationContext(), "UP UP AND AWAY", Toast.LENGTH_LONG).show();
 
         //loop over all chords
         //  +1 to each
         // except 12, which becomes 1.
         // so no mod 12 stuff is even needed!
 
-        // BIG question:
-        // will this change the array contents? or will it just throw away the changes?
+        // BUG
+        // This does not change the array contents.
+        // When you hit the up button, it shows the same chords.
         for (Integer chord : chords) {
             if (chord >= 1 && chord <= 11) {
                 chord += 1;
@@ -54,6 +54,7 @@ public class MainActivity extends Activity {
             }
         }
 
+        Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
     }
 
     public void modulateDown(View v) {
@@ -71,14 +72,52 @@ public class MainActivity extends Activity {
         // change the number into the chord name
         // append the chord name to our output
         for (Integer chordNum : chords) {
-            chordNames = chordNames + getChordName(chordNum);
+            chordNames = chordNames + getChordName(chordNum) + " ";
         }
         return (CharSequence) chordNames;
     }
 
     private CharSequence getChordName(Integer chordNum) {
-        //TODO: boring numbers to chords switch statement thing.
-        return "X";
+        //No breaks because they are return statements.
+        switch (chordNum) {
+            case 1:
+                return "A";
+            case 2:
+                return "A#/Bb";
+            case 3:
+                return "B";
+            case 4:
+                return "C";
+            case 5:
+                return "C#/Db";
+            case 6:
+                return "D";
+            case 7:
+                return "D#/Eb";
+            case 8:
+                return "E";
+            case 9:
+                return "F";
+            case 10:
+                return "F#/Gb";
+            case 11:
+                return "G";
+            case 12:
+                return "G#/Ab";
+            default:
+                return "error";
+        }
+    }
+
+
+    public void delete(View v) {
+        //TODO: delete the latest chord enetered
+        Toast.makeText(getApplicationContext(), "delete not done yet", Toast.LENGTH_LONG).show();
+    }
+
+    public void clear(View v) {
+        //TODO: clear all
+        Toast.makeText(getApplicationContext(), "clear not done yet", Toast.LENGTH_LONG).show();
     }
 
     public void addChord(View v) {
@@ -138,11 +177,12 @@ public class MainActivity extends Activity {
         }
 
         Toast.makeText(getApplicationContext(), chord, Toast.LENGTH_LONG).show();
-        updateChordDisplay(chord);
+        chords.add(chordNumber);
+        updateChordDisplay();
     }
 
-    private void updateChordDisplay(CharSequence chord) {
+    private void updateChordDisplay() {
         TextView chordsView = (TextView) findViewById(R.id.chords);
-        chordsView.append(chord + ".");
+        chordsView.setText(chordNamesFromNumbers());
     }
 }

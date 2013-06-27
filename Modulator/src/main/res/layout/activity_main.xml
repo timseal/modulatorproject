@@ -129,6 +129,30 @@
 
         </TableRow>
 
+        <TableRow
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:id="@+id/delete"
+                    android:layout_span="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Delete"
+                    android:onClick="delete"/>
+
+            <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:id="@+id/clear"
+                    android:layout_span="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Clear"
+                    android:onClick="clear"/>
+        </TableRow>
+
         <TableRow>
 
             <TextView
