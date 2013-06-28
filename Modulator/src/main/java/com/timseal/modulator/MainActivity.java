@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,13 +137,21 @@ public class MainActivity extends Activity {
 
 
     public void delete(View v) {
-        //TODO: delete the latest chord enetered
-        Toast.makeText(getApplicationContext(), "delete not done yet", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "delete not done yet", Toast.LENGTH_LONG).show();
+        int size = chords.size();
+        if (size > 0) {
+            chords.remove(size - 1);
+            updateChordDisplay();
+            showNewChords();
+        }
+        // if size is zero, then do nothing.
     }
 
     public void clear(View v) {
-        //TODO: clear all
-        Toast.makeText(getApplicationContext(), "clear not done yet", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "clear not done yet", Toast.LENGTH_LONG).show();
+        chords.clear();
+        updateChordDisplay();
+        // showNewChords();  not really, it's probably nicer to keep them there
     }
 
     public void addChord(View v) {
