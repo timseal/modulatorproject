@@ -11,19 +11,23 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity {
 
     private static final String TAG = "Modulator.MainActivity";
     public static final int MAX_CHORDS = 20;
-    List<Integer> chords = new ArrayList<Integer>(MAX_CHORDS);
+    public static final String CHORDS_LIST = "chords_list";
+    ArrayList<Integer> chords = new ArrayList<Integer>(MAX_CHORDS);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        if(savedInstanceState != null) {
+//            chords = savedInstanceState.getIntegerArrayList(CHORDS_LIST);
+//        }
         //TODO: keep state on orientation changes!!
     }
 
@@ -42,7 +46,7 @@ public class MainActivity extends Activity {
         // except 12, which becomes 1.
         // so no mod 12 stuff is even needed!
 
-        List<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
+        ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
 
         for (Integer chord : chords) {
             Integer newChord;
@@ -69,7 +73,7 @@ public class MainActivity extends Activity {
         // loop over all chords
         // -1 to each
         // except 1, which becomes 12.
-        List<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
+        ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
 
         for (Integer chord : chords) {
             Integer newChord;
@@ -154,7 +158,14 @@ public class MainActivity extends Activity {
         // showNewChords();  not really, it's probably nicer to keep them there
     }
 
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putIntegerArrayList(CHORDS_LIST, chords);
+//    }
+
     public void addChord(View v) {
+        //TODO: remove chord character, the translation happens elsewhere now
         CharSequence chord = "";
         Integer chordNumber = 0;
         switch (v.getId()) {
