@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
 //        Toast.makeText(getApplicationContext(), "clear not done yet", Toast.LENGTH_LONG).show();
         chords.clear();
         updateChordDisplay();
-        // showNewChords();  not really, it's probably nicer to keep them there
+        showNewChords();
     }
 
 //    @Override
