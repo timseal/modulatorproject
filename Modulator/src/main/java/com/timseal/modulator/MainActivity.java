@@ -109,31 +109,35 @@ public class MainActivity extends Activity {
 
     private CharSequence getChordName(Integer chordNum) {
         //No breaks because they are return statements.
+
+        // When showing a sharp/flat, I have preferences.
+        // they are F#, G#, Bb, C#, Eb.
+        //Probably because I mostly play in certain keys - or I might be just strange.
         switch (chordNum) {
             case 1:
                 return "A";
             case 2:
-                return "A#/Bb";
+                return "Bb";
             case 3:
                 return "B";
             case 4:
                 return "C";
             case 5:
-                return "C#/Db";
+                return "C#";
             case 6:
                 return "D";
             case 7:
-                return "D#/Eb";
+                return "Eb";
             case 8:
                 return "E";
             case 9:
                 return "F";
             case 10:
-                return "F#/Gb";
+                return "F#";
             case 11:
                 return "G";
             case 12:
-                return "G#/Ab";
+                return "G#";
             default:
                 return "error";
         }
