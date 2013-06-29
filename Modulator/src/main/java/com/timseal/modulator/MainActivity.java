@@ -18,7 +18,8 @@ public class MainActivity extends Activity {
     public static final int MAX_CHORDS = 20;
     public static final String CHORDS_LIST = "chords_list";
     ArrayList<Integer> chords = new ArrayList<Integer>(MAX_CHORDS);
-
+    ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
+    private Integer changeBy = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,68 +41,39 @@ public class MainActivity extends Activity {
     }
 
     public void modulateUp(View v) {
-
-        //loop over all chords
-        //  +1 to each
-        // except 12, which becomes 1.
-        // so no mod 12 stuff is even needed!
-
-        ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
-
-        for (Integer chord : chords) {
-            Integer newChord;
-            if (chord >= 1 && chord <= 11) {
-                newChord = chord + 1;
-            } else if (chord == 12) {
-                newChord = 1;
-            } else {
-                Log.d(TAG, "invalid chord number");
-                newChord = -1;
-                ///ARGH! error.
-            }
-            Log.d(TAG, "chord was " + chord + ", changed to " + newChord);
-            newChords.add(newChord);
-        }
-        Log.d(TAG, newChords.toString());
-        chords = newChords; //possible sync bug
-        //Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
+        changeBy += 1;
+        newChords.clear();
+        recalculate();
         showNewChords();
     }
-
 
     public void modulateDown(View v) {
-        // loop over all chords
-        // -1 to each
-        // except 1, which becomes 12.
-        ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
-
-        for (Integer chord : chords) {
-            Integer newChord;
-            if (chord >= 2 && chord <= 12) {
-                newChord = chord - 1;
-            } else if (chord == 1) {
-                newChord = 12;
-            } else {
-                Log.d(TAG, "invalid chord number");
-                newChord = -1;
-                ///ARGH! error.
-            }
-            Log.d(TAG, "chord was " + chord + ", changed to " + newChord);
-            newChords.add(newChord);
-        }
-        Log.d(TAG, newChords.toString());
-        chords = newChords; //possible sync bug
-        //Toast.makeText(getApplicationContext(), chordNamesFromNumbers(), Toast.LENGTH_LONG).show();
+        changeBy -= 1;
+        newChords.clear();  //TODO: move this into recalculate()
+        recalculate();
         showNewChords();
     }
 
 
-    private CharSequence chordNamesFromNumbers() {
+    private void recalculate() {
+        // java's mod for negatives gives negatives
+        // workaround is  (a % b + b) % b
+        for (Integer chord : chords) {
+            Integer newChord = ((chord + changeBy) % 12 + 12) % 12;
+            Log.d(TAG, "changeBy = " + changeBy);
+            Log.d(TAG, "chord was " + chord + ", changed to " + newChord);
+            newChords.add(newChord);
+        }
+        Log.d(TAG, newChords.toString());
+    }
+
+
+    private CharSequence chordNamesFromNumbers(ArrayList<Integer> chordNumbers) {
         String chordNames = "";
         //loop over all chords
         // change the number into the chord name
         // append the chord name to our output
-        for (Integer chordNum : chords) {
+        for (Integer chordNum : chordNumbers) {
             chordNames = chordNames + getChordName(chordNum) + " ";
         }
         return (CharSequence) chordNames;
@@ -114,29 +86,29 @@ public class MainActivity extends Activity {
         // they are F#, G#, Bb, C#, Eb.
         //Probably because I mostly play in certain keys - or I might be just strange.
         switch (chordNum) {
-            case 1:
+            case 0:
                 return "A";
-            case 2:
+            case 1:
                 return "Bb";
-            case 3:
+            case 2:
                 return "B";
-            case 4:
+            case 3:
                 return "C";
-            case 5:
+            case 4:
                 return "C#";
-            case 6:
+            case 5:
                 return "D";
-            case 7:
+            case 6:
                 return "Eb";
-            case 8:
+            case 7:
                 return "E";
-            case 9:
+            case 8:
                 return "F";
-            case 10:
+            case 9:
                 return "F#";
-            case 11:
+            case 10:
                 return "G";
-            case 12:
+            case 11:
                 return "G#";
             default:
                 return "error";
@@ -169,57 +141,44 @@ public class MainActivity extends Activity {
 //    }
 
     public void addChord(View v) {
-        //TODO: remove chord character, the translation happens elsewhere now
         CharSequence chord = "";
-        Integer chordNumber = 0;
+        Integer chordNumber = 99;
         switch (v.getId()) {
             case R.id.A:
-                chord = "A";
-                chordNumber = 1;
+                chordNumber = 0;
                 break;
             case R.id.Bb:
-                chord = "Bb";
-                chordNumber = 2;
+                chordNumber = 1;
                 break;
             case R.id.B:
-                chord = "B";
-                chordNumber = 3;
+                chordNumber = 2;
                 break;
             case R.id.C:
-                chord = "C";
-                chordNumber = 4;
+                chordNumber = 3;
                 break;
             case R.id.Db:
-                chord = "Db";
-                chordNumber = 5;
+                chordNumber = 4;
                 break;
             case R.id.D:
-                chord = "D";
-                chordNumber = 6;
+                chordNumber = 5;
                 break;
             case R.id.Eb:
-                chord = "Eb";
-                chordNumber = 7;
+                chordNumber = 6;
                 break;
             case R.id.E:
-                chord = "E";
-                chordNumber = 8;
+                chordNumber = 7;
                 break;
             case R.id.F:
-                chord = "F";
-                chordNumber = 9;
+                chordNumber = 8;
                 break;
             case R.id.Gb:
-                chord = "Gb";
-                chordNumber = 10;
+                chordNumber = 9;
                 break;
             case R.id.G:
-                chord = "G";
-                chordNumber = 11;
+                chordNumber = 10;
                 break;
             case R.id.Ab:
-                chord = "Ab";
-                chordNumber = 12;
+                chordNumber = 11;
                 break;
             default:
                 chord = "??";
@@ -232,11 +191,11 @@ public class MainActivity extends Activity {
 
     private void updateChordDisplay() {
         TextView chordsView = (TextView) findViewById(R.id.chords);
-        chordsView.setText(chordNamesFromNumbers());
+        chordsView.setText(chordNamesFromNumbers(chords));
     }
 
     private void showNewChords() {
         TextView newChordsView = (TextView) findViewById(R.id.newchords);
-        newChordsView.setText(chordNamesFromNumbers());
+        newChordsView.setText(chordNamesFromNumbers(newChords));
     }
 }
