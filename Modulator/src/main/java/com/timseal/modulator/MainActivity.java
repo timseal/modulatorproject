@@ -16,20 +16,42 @@ public class MainActivity extends Activity {
 
     private static final String TAG = "Modulator.MainActivity";
     public static final int MAX_CHORDS = 20;
+
     public static final String CHORDS_LIST = "chords_list";
+    public static final String NEW_CHORDS_LIST = "new_chords_list";
+    public static final String CHANGE_BY = "change_by";
+    public static final String SHOW_SHARPS = "show_sharps";
+
     ArrayList<Integer> chords = new ArrayList<Integer>(MAX_CHORDS);
     ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
-    private Integer changeBy = 0;
+    private int changeBy = 0;
+
+    private boolean showSharps = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if(savedInstanceState != null) {
-//            chords = savedInstanceState.getIntegerArrayList(CHORDS_LIST);
-//        }
-        //TODO: keep state on orientation changes!!
+        if (savedInstanceState != null) {
+            chords = savedInstanceState.getIntegerArrayList(CHORDS_LIST);
+            newChords = savedInstanceState.getIntegerArrayList(NEW_CHORDS_LIST);
+            changeBy = savedInstanceState.getInt(CHANGE_BY);
+            showSharps = savedInstanceState.getBoolean(SHOW_SHARPS);
+            updateChordDisplay();
+            showNewChords();
+        }
+
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntegerArrayList(CHORDS_LIST, chords);
+        outState.putIntegerArrayList(NEW_CHORDS_LIST, newChords);
+        outState.putInt(CHANGE_BY, changeBy);
+        outState.putBoolean(SHOW_SHARPS, showSharps);
     }
 
 
@@ -40,23 +62,35 @@ public class MainActivity extends Activity {
         return true;
     }
 
+
+    public void setSharps(View v) {
+        showSharps = true;
+        updateChordDisplay();
+        showNewChords();
+    }
+
+    public void setFlats(View v) {
+        showSharps = false;
+        updateChordDisplay();
+        showNewChords();
+    }
+
     public void modulateUp(View v) {
         changeBy += 1;
-        newChords.clear();
         recalculate();
         showNewChords();
     }
 
     public void modulateDown(View v) {
         changeBy -= 1;
-        newChords.clear();  //TODO: move this into recalculate()
         recalculate();
         showNewChords();
     }
 
 
     private void recalculate() {
-        // java's mod for negatives gives negatives
+        newChords.clear();
+        // java's mod for negatives gives negatives, which is crap.
         // workaround is  (a % b + b) % b
         for (Integer chord : chords) {
             Integer newChord = ((chord + changeBy) % 12 + 12) % 12;
@@ -82,45 +116,77 @@ public class MainActivity extends Activity {
     private CharSequence getChordName(Integer chordNum) {
         //No breaks because they are return statements.
 
-        // When showing a sharp/flat, I have preferences.
-        // they are F#, G#, Bb, C#, Eb.
-        //Probably because I mostly play in certain keys - or I might be just strange.
-        switch (chordNum) {
-            case 0:
-                return "A";
-            case 1:
-                return "Bb";
-            case 2:
-                return "B";
-            case 3:
-                return "C";
-            case 4:
-                return "C#";
-            case 5:
-                return "D";
-            case 6:
-                return "Eb";
-            case 7:
-                return "E";
-            case 8:
-                return "F";
-            case 9:
-                return "F#";
-            case 10:
-                return "G";
-            case 11:
-                return "G#";
-            default:
-                return "error";
+        // TODO: have two arrays of twelve chord names, one for sharps, one for flats.
+        // then return sharps(chordNum) or flats(chordNum)
+        // in fact this method probably vanishes if I do that.
+        if (showSharps) {
+            switch (chordNum) {
+                case 0:
+                    return "A";
+                case 1:
+                    return "A#";
+                case 2:
+                    return "B";
+                case 3:
+                    return "C";
+                case 4:
+                    return "C#";
+                case 5:
+                    return "D";
+                case 6:
+                    return "D#";
+                case 7:
+                    return "E";
+                case 8:
+                    return "F";
+                case 9:
+                    return "F#";
+                case 10:
+                    return "G";
+                case 11:
+                    return "G#";
+                default:
+                    return "error";
+            }
+        } else { // showing flats
+            switch (chordNum) {
+                case 0:
+                    return "A";
+                case 1:
+                    return "Bb";
+                case 2:
+                    return "B";
+                case 3:
+                    return "C";
+                case 4:
+                    return "Db";
+                case 5:
+                    return "D";
+                case 6:
+                    return "Eb";
+                case 7:
+                    return "E";
+                case 8:
+                    return "F";
+                case 9:
+                    return "Gb";
+                case 10:
+                    return "G";
+                case 11:
+                    return "Ab";
+                default:
+                    return "error";
+
+            }
         }
     }
 
 
     public void delete(View v) {
-//        Toast.makeText(getApplicationContext(), "delete not done yet", Toast.LENGTH_LONG).show();
         int size = chords.size();
         if (size > 0) {
             chords.remove(size - 1);
+            recalculate();
             updateChordDisplay();
             showNewChords();
         }
@@ -128,20 +194,13 @@ public class MainActivity extends Activity {
     }
 
     public void clear(View v) {
-//        Toast.makeText(getApplicationContext(), "clear not done yet", Toast.LENGTH_LONG).show();
         chords.clear();
+        newChords.clear();
         updateChordDisplay();
         showNewChords();
     }
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putIntegerArrayList(CHORDS_LIST, chords);
-//    }
-
     public void addChord(View v) {
-        CharSequence chord = "";
         Integer chordNumber = 99;
         switch (v.getId()) {
             case R.id.A:
@@ -181,10 +240,9 @@ public class MainActivity extends Activity {
                 chordNumber = 11;
                 break;
             default:
-                chord = "??";
+                chordNumber = 99;  // very ZX-BASIC of me, I know
         }
 
-        //Toast.makeText(getApplicationContext(), chord, Toast.LENGTH_LONG).show();
         chords.add(chordNumber);
         updateChordDisplay();
     }
