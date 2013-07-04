@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,10 +40,20 @@ public class MainActivity extends Activity {
             newChords = savedInstanceState.getIntegerArrayList(NEW_CHORDS_LIST);
             changeBy = savedInstanceState.getInt(CHANGE_BY);
             showSharps = savedInstanceState.getBoolean(SHOW_SHARPS);
+            updateButtonText();
+            showChangeByText();
             updateChordDisplay();
             showNewChords();
+        } else {
+            updateButtonText();
+            showChangeByText();
         }
 
+    }
+
+
+    private void showToast(CharSequence text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
 
@@ -65,24 +77,45 @@ public class MainActivity extends Activity {
 
     public void setSharps(View v) {
         showSharps = true;
+        updateButtonText();
         updateChordDisplay();
         showNewChords();
     }
 
     public void setFlats(View v) {
         showSharps = false;
+        updateButtonText();
         updateChordDisplay();
         showNewChords();
     }
 
+    private void updateButtonText() {
+        //yeah this is hideous.
+        ((Button) findViewById(R.id.Bb)).setText(getChordName(1));
+        ((Button) findViewById(R.id.Db)).setText(getChordName(4));
+        ((Button) findViewById(R.id.Eb)).setText(getChordName(6));
+        ((Button) findViewById(R.id.Gb)).setText(getChordName(9));
+        ((Button) findViewById(R.id.Ab)).setText(getChordName(11));
+
+    }
+
+    private void showChangeByText() {
+        TextView changeByText = (TextView) findViewById(R.id.changeByText);
+        CharSequence cs = ((Integer) changeBy).toString();
+        Log.d(TAG, "changeBy int: " + changeBy + ", string: " + cs);
+        changeByText.setText(cs);
+    }
+
     public void modulateUp(View v) {
         changeBy += 1;
+        showChangeByText();
         recalculate();
         showNewChords();
     }
 
     public void modulateDown(View v) {
         changeBy -= 1;
+        showChangeByText();
         recalculate();
         showNewChords();
     }
@@ -196,6 +229,7 @@ public class MainActivity extends Activity {
     public void clear(View v) {
         chords.clear();
         newChords.clear();
+        changeBy = 0;
         updateChordDisplay();
         showNewChords();
     }

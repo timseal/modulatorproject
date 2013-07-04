@@ -181,20 +181,27 @@
         <TableRow>
 
             <LinearLayout android:orientation="vertical">
-
                 <Button
                         android:id="@+id/modulateUp"
-                        android:text="Up"
                         android:onClick="modulateUp"
                         android:layout_height="wrap_content"
-                        android:layout_width="match_parent"/>
+                        android:layout_width="match_parent"
+                        android:background="@android:drawable/arrow_up_float"/>
+
+                <TextView
+                        android:id="@+id/changeByText"
+                        android:text="0"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:inputType="numberSigned"
+                        />
 
                 <Button
                         android:id="@+id/modulateDown"
-                        android:text="Down"
                         android:onClick="modulateDown"
                         android:layout_height="wrap_content"
-                        android:layout_width="match_parent"/>/>
+                        android:layout_width="match_parent"
+                        android:background="@android:drawable/arrow_down_float"/>/>
             </LinearLayout>
 
             <LinearLayout
@@ -228,9 +235,11 @@
                     android:layout_span="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:checkedButton="@+id/sharps"
+                    >
 
-                <RadioButton
+            <RadioButton
                         android:id="@+id/sharps"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
