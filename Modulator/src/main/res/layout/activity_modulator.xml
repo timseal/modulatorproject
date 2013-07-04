@@ -201,7 +201,7 @@
                         android:onClick="modulateDown"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/arrow_down_float"/>/>
+                        android:background="@android:drawable/arrow_down_float"/>
             </LinearLayout>
 
             <LinearLayout

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class ChordTransformer {
     public static final int MAX_CHORDS = 20;
     private static final String TAG = "ChordTransformer";
-    private ArrayList<Integer> _chords = new ArrayList<Integer>(20);
-    private ArrayList<Integer> _newChords = new ArrayList<Integer>(20);
+    private ArrayList<Integer> _chords = new ArrayList<Integer>(MAX_CHORDS);
+    private ArrayList<Integer> _newChords = new ArrayList<Integer>(MAX_CHORDS);
     private AccidentalType _accidentalType = AccidentalType.SHARPS;
     private Integer _changeBy = 0;
 
@@ -40,11 +40,35 @@ public class ChordTransformer {
     }
 
     public CharSequence getOriginalChordsText() {
-        return "in a minute";
+        return chordNamesFromNumbers(_chords);
+    }
+
+
+    private CharSequence chordNamesFromNumbers(ArrayList<Integer> chordNumbers) {
+        String chordNames = "";
+        //loop over all chords
+        // change the number into the chord name
+        // append the chord name to our output
+        for (Integer chordNum : chordNumbers) {
+            chordNames = chordNames + getChordName(chordNum) + " ";
+        }
+        return (CharSequence) chordNames;
+    }
+
+    public CharSequence getChordName(Integer chordNum) {
+
+        CharSequence[] sharpVersion = {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
+        CharSequence[] flatVersion = {"A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"};
+        if (_accidentalType == AccidentalType.SHARPS) {
+            return sharpVersion[chordNum];
+        } else {
+            return flatVersion[chordNum];
+        }
     }
 
     public CharSequence getNewChordsText() {
-        return "patience";
+        recalculate();
+        return chordNamesFromNumbers(_newChords);
     }
 
 

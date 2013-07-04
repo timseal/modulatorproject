@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class ModulatorActivity extends Activity {
 
+    public static final int D = 4;
     private static final String TAG = "Modulator.ModulatorActivity";
 
 
@@ -23,13 +24,19 @@ public class ModulatorActivity extends Activity {
     public static final String NEW_CHORDS_LIST = "new_chords_list";
     public static final String CHANGE_BY = "change_by";
     public static final String SHOW_SHARPS = "show_sharps";
+    public static final int B_FLAT = 1;
+    public static final int D_FLAT = 4;
+    public static final int E_FLAT = 6;
+    public static final int G_FLAT = 9;
+    public static final int A_FLAT = 11;
+
 
     private ChordTransformer chordTransformer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_modulator);
 
         ArrayList<Integer> chords = new ArrayList<Integer>(ChordTransformer.MAX_CHORDS);
 
@@ -102,11 +109,11 @@ public class ModulatorActivity extends Activity {
 
     private void updateButtonText() {
         //yeah this is hideous.
-        ((Button) findViewById(R.id.Bb)).setText(getChordName(1));
-        ((Button) findViewById(R.id.Db)).setText(getChordName(4));
-        ((Button) findViewById(R.id.Eb)).setText(getChordName(6));
-        ((Button) findViewById(R.id.Gb)).setText(getChordName(9));
-        ((Button) findViewById(R.id.Ab)).setText(getChordName(11));
+        ((Button) findViewById(R.id.Bb)).setText(chordTransformer.getChordName(B_FLAT));
+        ((Button) findViewById(R.id.Db)).setText(chordTransformer.getChordName(D_FLAT));
+        ((Button) findViewById(R.id.Eb)).setText(chordTransformer.getChordName(E_FLAT));
+        ((Button) findViewById(R.id.Gb)).setText(chordTransformer.getChordName(G_FLAT));
+        ((Button) findViewById(R.id.Ab)).setText(chordTransformer.getChordName(A_FLAT));
 
     }
 
@@ -133,27 +140,7 @@ public class ModulatorActivity extends Activity {
 
 
 
-    private CharSequence chordNamesFromNumbers(ArrayList<Integer> chordNumbers) {
-        String chordNames = "";
-        //loop over all chords
-        // change the number into the chord name
-        // append the chord name to our output
-        for (Integer chordNum : chordNumbers) {
-            chordNames = chordNames + getChordName(chordNum) + " ";
-        }
-        return (CharSequence) chordNames;
-    }
 
-    private CharSequence getChordName(Integer chordNum) {
-
-        CharSequence[] sharpVersion = {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
-        CharSequence[] flatVersion = {"A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"};
-        if (chordTransformer.getAccidentalType() == AccidentalType.SHARPS) {
-            return sharpVersion[chordNum];
-        } else {
-            return flatVersion[chordNum];
-        }
-    }
 
 
     public void delete(View v) {
