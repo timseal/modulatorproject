@@ -14,32 +14,40 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class ModulatorActivity extends Activity {
 
-    private static final String TAG = "Modulator.MainActivity";
-    public static final int MAX_CHORDS = 20;
+    private static final String TAG = "Modulator.ModulatorActivity";
+
 
     public static final String CHORDS_LIST = "chords_list";
     public static final String NEW_CHORDS_LIST = "new_chords_list";
     public static final String CHANGE_BY = "change_by";
     public static final String SHOW_SHARPS = "show_sharps";
 
-    ArrayList<Integer> chords = new ArrayList<Integer>(MAX_CHORDS);
-    ArrayList<Integer> newChords = new ArrayList<Integer>(MAX_CHORDS);
-    private int changeBy = 0;
-
-    private boolean showSharps = false;
+    private ChordTransformer chordTransformer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ArrayList<Integer> chords = new ArrayList<Integer>(ChordTransformer.MAX_CHORDS);
+
         if (savedInstanceState != null) {
             chords = savedInstanceState.getIntegerArrayList(CHORDS_LIST);
-            newChords = savedInstanceState.getIntegerArrayList(NEW_CHORDS_LIST);
+            Integer changeBy = 0;
+            boolean showSharps = true;
             changeBy = savedInstanceState.getInt(CHANGE_BY);
             showSharps = savedInstanceState.getBoolean(SHOW_SHARPS);
+            AccidentalType accidentalType;
+            if (showSharps) {
+                accidentalType = AccidentalType.SHARPS;
+            } else {
+                accidentalType = AccidentalType.FLATS;
+            }
+            chordTransformer.setChords(chords);
+            chordTransformer.setAccidentalType(accidentalType);
+
             updateButtonText();
             showChangeByText();
             updateChordDisplay();
@@ -60,10 +68,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList(CHORDS_LIST, chords);
-        outState.putIntegerArrayList(NEW_CHORDS_LIST, newChords);
-        outState.putInt(CHANGE_BY, changeBy);
-        outState.putBoolean(SHOW_SHARPS, showSharps);
+        outState.putIntegerArrayList(CHORDS_LIST, chordTransformer.getChords());
+        outState.putInt(CHANGE_BY, chordTransformer.getChangeBy());
+        if (chordTransformer.getAccidentalType() == AccidentalType.SHARPS) {
+            outState.putBoolean(SHOW_SHARPS, true);
+        } else {
+            outState.putBoolean(SHOW_SHARPS, false);
+        }
     }
 
 
@@ -76,14 +87,14 @@ public class MainActivity extends Activity {
 
 
     public void setSharps(View v) {
-        showSharps = true;
+        chordTransformer.setAccidentalType(AccidentalType.SHARPS);
         updateButtonText();
         updateChordDisplay();
         showNewChords();
     }
 
     public void setFlats(View v) {
-        showSharps = false;
+        chordTransformer.setAccidentalType(AccidentalType.FLATS);
         updateButtonText();
         updateChordDisplay();
         showNewChords();
@@ -101,38 +112,25 @@ public class MainActivity extends Activity {
 
     private void showChangeByText() {
         TextView changeByText = (TextView) findViewById(R.id.changeByText);
-        CharSequence cs = ((Integer) changeBy).toString();
-        Log.d(TAG, "changeBy int: " + changeBy + ", string: " + cs);
+        CharSequence cs = ((Integer) chordTransformer.getChangeBy()).toString();
+        Log.d(TAG, "changeBy int: " + chordTransformer.getChangeBy() + ", string: " + cs);
         changeByText.setText(cs);
     }
 
     public void modulateUp(View v) {
-        changeBy += 1;
+        chordTransformer.modulateUp();
+
         showChangeByText();
-        recalculate();
         showNewChords();
     }
 
     public void modulateDown(View v) {
-        changeBy -= 1;
+        chordTransformer.modulateDown();
         showChangeByText();
-        recalculate();
         showNewChords();
     }
 
 
-    private void recalculate() {
-        newChords.clear();
-        // java's mod for negatives gives negatives, which is crap.
-        // workaround is  (a % b + b) % b
-        for (Integer chord : chords) {
-            Integer newChord = ((chord + changeBy) % 12 + 12) % 12;
-            Log.d(TAG, "changeBy = " + changeBy);
-            Log.d(TAG, "chord was " + chord + ", changed to " + newChord);
-            newChords.add(newChord);
-        }
-        Log.d(TAG, newChords.toString());
-    }
 
 
     private CharSequence chordNamesFromNumbers(ArrayList<Integer> chordNumbers) {
@@ -147,89 +145,25 @@ public class MainActivity extends Activity {
     }
 
     private CharSequence getChordName(Integer chordNum) {
-        //No breaks because they are return statements.
 
-        // TODO: have two arrays of twelve chord names, one for sharps, one for flats.
-        // then return sharps(chordNum) or flats(chordNum)
-        // in fact this method probably vanishes if I do that.
-        if (showSharps) {
-            switch (chordNum) {
-                case 0:
-                    return "A";
-                case 1:
-                    return "A#";
-                case 2:
-                    return "B";
-                case 3:
-                    return "C";
-                case 4:
-                    return "C#";
-                case 5:
-                    return "D";
-                case 6:
-                    return "D#";
-                case 7:
-                    return "E";
-                case 8:
-                    return "F";
-                case 9:
-                    return "F#";
-                case 10:
-                    return "G";
-                case 11:
-                    return "G#";
-                default:
-                    return "error";
-            }
-        } else { // showing flats
-            switch (chordNum) {
-                case 0:
-                    return "A";
-                case 1:
-                    return "Bb";
-                case 2:
-                    return "B";
-                case 3:
-                    return "C";
-                case 4:
-                    return "Db";
-                case 5:
-                    return "D";
-                case 6:
-                    return "Eb";
-                case 7:
-                    return "E";
-                case 8:
-                    return "F";
-                case 9:
-                    return "Gb";
-                case 10:
-                    return "G";
-                case 11:
-                    return "Ab";
-                default:
-                    return "error";
-
-            }
+        CharSequence[] sharpVersion = {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
+        CharSequence[] flatVersion = {"A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"};
+        if (chordTransformer.getAccidentalType() == AccidentalType.SHARPS) {
+            return sharpVersion[chordNum];
+        } else {
+            return flatVersion[chordNum];
         }
     }
 
 
     public void delete(View v) {
-        int size = chords.size();
-        if (size > 0) {
-            chords.remove(size - 1);
-            recalculate();
-            updateChordDisplay();
-            showNewChords();
-        }
-        // if size is zero, then do nothing.
+        chordTransformer.deleteLastChord();
+        updateChordDisplay();
+        showNewChords();
     }
 
     public void clear(View v) {
-        chords.clear();
-        newChords.clear();
-        changeBy = 0;
+        chordTransformer.clearAndReset();
         updateChordDisplay();
         showNewChords();
     }
@@ -277,17 +211,18 @@ public class MainActivity extends Activity {
                 chordNumber = 99;  // very ZX-BASIC of me, I know
         }
 
-        chords.add(chordNumber);
+        chordTransformer.addChord(chordNumber);
         updateChordDisplay();
     }
 
     private void updateChordDisplay() {
         TextView chordsView = (TextView) findViewById(R.id.chords);
-        chordsView.setText(chordNamesFromNumbers(chords));
+        //chordsView.setText(chordNamesFromNumbers(chords));
+        chordsView.setText(chordTransformer.getOriginalChordsText());
     }
 
     private void showNewChords() {
         TextView newChordsView = (TextView) findViewById(R.id.newchords);
-        newChordsView.setText(chordNamesFromNumbers(newChords));
+        newChordsView.setText(chordTransformer.getNewChordsText());
     }
 }
