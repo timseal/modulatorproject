@@ -31,7 +31,7 @@ public class ModulatorActivity extends Activity {
     public static final int A_FLAT = 11;
 
 
-    private ChordTransformer chordTransformer;
+    private ChordTransformer chordTransformer = new ChordTransformer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,11 +136,6 @@ public class ModulatorActivity extends Activity {
         showChangeByText();
         showNewChords();
     }
-
-
-
-
-
 
 
     public void delete(View v) {

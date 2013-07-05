@@ -10,10 +10,22 @@ import java.util.ArrayList;
 public class ChordTransformer {
     public static final int MAX_CHORDS = 20;
     private static final String TAG = "ChordTransformer";
-    private ArrayList<Integer> _chords = new ArrayList<Integer>(MAX_CHORDS);
-    private ArrayList<Integer> _newChords = new ArrayList<Integer>(MAX_CHORDS);
+    private ArrayList<Integer> _chords;
+    private ArrayList<Integer> _newChords;
     private AccidentalType _accidentalType = AccidentalType.SHARPS;
     private Integer _changeBy = 0;
+
+
+    public ChordTransformer() {
+        _chords = new ArrayList<Integer>(MAX_CHORDS);
+        _newChords = new ArrayList<Integer>(MAX_CHORDS);
+    }
+
+    public ChordTransformer(ArrayList<Integer> chords, AccidentalType accidentalType, Integer changeBy) {
+        setChords(chords);
+        setAccidentalType(accidentalType);
+        setChangeBy(changeBy);
+    }
 
     public Integer getChangeBy() {
         return _changeBy;
@@ -71,12 +83,6 @@ public class ChordTransformer {
         return chordNamesFromNumbers(_newChords);
     }
 
-
-    public ChordTransformer(ArrayList<Integer> chords, AccidentalType accidentalType, Integer changeBy) {
-        setChords(chords);
-        setAccidentalType(accidentalType);
-        setChangeBy(changeBy);
-    }
 
 
     public void modulateUp() {
