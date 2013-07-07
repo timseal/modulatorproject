@@ -206,12 +206,14 @@
 
                 <LinearLayout android:orientation="vertical">
 
-                    <Button
+                    <ImageButton
                             android:id="@+id/modulateUp"
                             android:onClick="modulateUp"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
-                            android:background="@android:drawable/arrow_up_float"/>
+                            android:src="@drawable/ic_uparrow"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:scaleType="fitCenter"/>
 
                     <TextView
                             android:id="@+id/changeByText"
@@ -225,12 +227,14 @@
                             android:textAppearance="@android:style/TextAppearance.Holo.Large"
                             android:layout_gravity="center_horizontal"/>
 
-                    <Button
+                    <ImageButton
                             android:id="@+id/modulateDown"
                             android:onClick="modulateDown"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
-                            android:background="@android:drawable/arrow_down_float"/>
+                            android:src="@drawable/ic_downarrow"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:scaleType="fitCenter"/>
                 </LinearLayout>
 
                 <LinearLayout
