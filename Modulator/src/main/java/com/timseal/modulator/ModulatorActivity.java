@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class ModulatorActivity extends Activity {
 
-    public static final int D = 4;
     private static final String TAG = "Modulator.ModulatorActivity";
 
 
@@ -54,6 +53,7 @@ public class ModulatorActivity extends Activity {
             }
             chordTransformer.setChords(chords);
             chordTransformer.setAccidentalType(accidentalType);
+            chordTransformer.setChangeBy(changeBy);
 
             updateButtonText();
             showChangeByText();
@@ -76,12 +76,14 @@ public class ModulatorActivity extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putIntegerArrayList(CHORDS_LIST, chordTransformer.getChords());
-        outState.putInt(CHANGE_BY, chordTransformer.getChangeBy());
+        outState.putInt(CHANGE_BY, chordTransformer.getChangeBy().intValue());
+        Log.d(TAG, "saved changeBy: " + chordTransformer.getChangeBy().intValue());
         if (chordTransformer.getAccidentalType() == AccidentalType.SHARPS) {
             outState.putBoolean(SHOW_SHARPS, true);
         } else {
             outState.putBoolean(SHOW_SHARPS, false);
         }
+        //   Log.d(TAG,outState.toString());
     }
 
 

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              style="?android:attr/buttonBarStyle"
+              style="@style/AppTheme"
+              android:isScrollContainer="true"
         >
 
     <TableLayout
@@ -11,6 +12,32 @@
             android:stretchColumns="*"
             android:weightSum="6">
 
+        <TableRow>
+
+            <RadioGroup
+                    android:id="@+id/accidentalType"
+                    android:layout_span="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:checkedButton="@+id/sharps"
+                    >
+
+                <RadioButton
+                        android:id="@+id/sharps"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Sharps (#)"
+                        android:onClick="setSharps"/>
+
+                <RadioButton
+                        android:id="@+id/flats"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Flats (b)"
+                        android:onClick="setFlats"/>
+            </RadioGroup>
+        </TableRow>
 
         <TableRow
                 android:layout_weight="1"
@@ -31,7 +58,7 @@
                     android:id="@+id/Bb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="A#/Bb"
+                    android:text="A#"
                     android:onClick="addChord"/>
 
 
@@ -50,20 +77,20 @@
                     android:layout_height="match_parent"
                     android:text="C"
                     android:onClick="addChord"/>
-        </TableRow>
-
-        <TableRow
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <Button
                     style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/Db"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="C#/Db"
+                    android:text="C#"
                     android:onClick="addChord"/>
+        </TableRow>
+
+        <TableRow
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <Button
                     style="?android:attr/buttonBarButtonStyle"
@@ -78,7 +105,7 @@
                     android:id="@+id/Eb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="D#/Eb"
+                    android:text="D#"
                     android:onClick="addChord"/>
 
             <Button
@@ -88,12 +115,6 @@
                     android:layout_height="match_parent"
                     android:text="E"
                     android:onClick="addChord"/>
-        </TableRow>
-
-        <TableRow
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <Button
                     style="?android:attr/buttonBarButtonStyle"
@@ -108,8 +129,14 @@
                     android:id="@+id/Gb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="F#/Gb"
+                    android:text="F#"
                     android:onClick="addChord"/>
+        </TableRow>
+
+        <TableRow
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <Button
                     style="?android:attr/buttonBarButtonStyle"
@@ -124,15 +151,8 @@
                     android:id="@+id/Ab"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="G#/Ab"
+                    android:text="G#"
                     android:onClick="addChord"/>
-
-        </TableRow>
-
-        <TableRow
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <Button
                     style="?android:attr/buttonBarButtonStyle"
@@ -192,9 +212,13 @@
                         android:id="@+id/changeByText"
                         android:text="0"
                         android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:inputType="numberSigned"
-                        />
+                        style="@style/AppTheme"
+                        android:singleLine="false"
+                        android:textStyle="bold"
+                        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+                        android:layout_gravity="center_horizontal"/>
 
                 <Button
                         android:id="@+id/modulateDown"
@@ -228,32 +252,7 @@
             </LinearLayout>
         </TableRow>
 
-        <TableRow>
 
-            <RadioGroup
-                    android:id="@+id/accidentalType"
-                    android:layout_span="4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:checkedButton="@+id/sharps"
-                    >
-
-            <RadioButton
-                        android:id="@+id/sharps"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Sharps (#)"
-                        android:onClick="setSharps"/>
-
-                <RadioButton
-                        android:id="@+id/flats"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Flats (b)"
-                        android:onClick="setFlats"/>
-            </RadioGroup>
-        </TableRow>
     </TableLayout>
 
 </LinearLayout>
