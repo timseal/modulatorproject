@@ -1,258 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              style="@style/AppTheme"
-              android:isScrollContainer="true"
-        >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-    <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="*"
-            android:weightSum="6">
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme"
+            android:isScrollContainer="true"
+            >
 
-        <TableRow>
-
-            <RadioGroup
-                    android:id="@+id/accidentalType"
-                    android:layout_span="4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:checkedButton="@+id/sharps"
-                    >
-
-                <RadioButton
-                        android:id="@+id/sharps"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Sharps (#)"
-                        android:onClick="setSharps"/>
-
-                <RadioButton
-                        android:id="@+id/flats"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Flats (b)"
-                        android:onClick="setFlats"/>
-            </RadioGroup>
-        </TableRow>
-
-        <TableRow
-                android:layout_weight="1"
+        <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:stretchColumns="*"
+                android:weightSum="6">
 
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/A"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="A"
-                    android:onClick="addChord"
-                    />
+            <TableRow>
 
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/Bb"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="A#"
-                    android:onClick="addChord"/>
-
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/B"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="B"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/C"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="C"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/Db"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="C#"
-                    android:onClick="addChord"/>
-        </TableRow>
-
-        <TableRow
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/D"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="D"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/Eb"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="D#"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/E"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="E"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/F"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="F"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/Gb"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="F#"
-                    android:onClick="addChord"/>
-        </TableRow>
-
-        <TableRow
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/G"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="G"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/Ab"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="G#"
-                    android:onClick="addChord"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/delete"
-                    android:layout_span="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Delete"
-                    android:onClick="delete"/>
-
-            <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/clear"
-                    android:layout_span="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Clear"
-                    android:onClick="clear"/>
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                    android:text="Original Chords: "
-                    android:id="@+id/chordslabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_span="4"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                    android:text="(none yet)"
-                    android:id="@+id/chords"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_span="4"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Large"
-                    android:minLines="2"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <LinearLayout android:orientation="vertical">
-                <Button
-                        android:id="@+id/modulateUp"
-                        android:onClick="modulateUp"
-                        android:layout_height="wrap_content"
+                <RadioGroup
+                        android:id="@+id/accidentalType"
+                        android:layout_span="4"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/arrow_up_float"/>
-
-                <TextView
-                        android:id="@+id/changeByText"
-                        android:text="0"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:inputType="numberSigned"
-                        style="@style/AppTheme"
-                        android:singleLine="false"
-                        android:textStyle="bold"
-                        android:textAppearance="@android:style/TextAppearance.Holo.Large"
-                        android:layout_gravity="center_horizontal"/>
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/sharps"
+                        >
+
+                    <RadioButton
+                            android:id="@+id/sharps"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Sharps (#)"
+                            android:onClick="setSharps"/>
+
+                    <RadioButton
+                            android:id="@+id/flats"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Flats (b)"
+                            android:onClick="setFlats"/>
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <Button
-                        android:id="@+id/modulateDown"
-                        android:onClick="modulateDown"
-                        android:layout_height="wrap_content"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/A"
                         android:layout_width="match_parent"
-                        android:background="@android:drawable/arrow_down_float"/>
-            </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:text="A"
+                        android:onClick="addChord"
+                        />
 
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_span="3">
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/Bb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="A#"
+                        android:onClick="addChord"/>
+
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/B"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="B"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/C"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="C"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/Db"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="C#"
+                        android:onClick="addChord"/>
+            </TableRow>
+
+            <TableRow
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/D"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="D"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/Eb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="D#"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/E"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="E"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/F"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="F"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/Gb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="F#"
+                        android:onClick="addChord"/>
+            </TableRow>
+
+            <TableRow
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/G"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="G"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/Ab"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="G#"
+                        android:onClick="addChord"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/delete"
+                        android:layout_span="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Delete"
+                        android:onClick="delete"/>
+
+                <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:id="@+id/clear"
+                        android:layout_span="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Clear"
+                        android:onClick="clear"/>
+            </TableRow>
+
+            <TableRow>
 
                 <TextView
-                        android:layout_height="wrap_content"
+                        android:text="Original Chords: "
+                        android:id="@+id/chordslabel"
                         android:layout_width="match_parent"
-                        android:id="@+id/newchordslabel"
-                        android:text="New Chords: "
+                        android:layout_height="match_parent"
+                        android:layout_span="4"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
 
+            </TableRow>
+
+            <TableRow>
+
                 <TextView
-                        android:layout_height="match_parent"
+                        android:text="(none yet)"
+                        android:id="@+id/chords"
                         android:layout_width="match_parent"
-                        android:id="@+id/newchords"
-                        android:text=""
-                        android:textAppearance="@android:style/TextAppearance.Holo.Large"/>
+                        android:layout_height="match_parent"
+                        android:layout_span="4"
+                        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+                        android:minLines="2"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout android:orientation="vertical">
+
+                    <Button
+                            android:id="@+id/modulateUp"
+                            android:onClick="modulateUp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:background="@android:drawable/arrow_up_float"/>
+
+                    <TextView
+                            android:id="@+id/changeByText"
+                            android:text="0"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:inputType="numberSigned"
+                            style="@style/AppTheme"
+                            android:singleLine="false"
+                            android:textStyle="bold"
+                            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+                            android:layout_gravity="center_horizontal"/>
+
+                    <Button
+                            android:id="@+id/modulateDown"
+                            android:onClick="modulateDown"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:background="@android:drawable/arrow_down_float"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_span="3">
+
+                    <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:id="@+id/newchordslabel"
+                            android:text="New Chords: "
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
+
+                    <TextView
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:id="@+id/newchords"
+                            android:text=""
+                            android:textAppearance="@android:style/TextAppearance.Holo.Large"/>
 
 
-            </LinearLayout>
-        </TableRow>
+                </LinearLayout>
+            </TableRow>
 
 
-    </TableLayout>
+        </TableLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
